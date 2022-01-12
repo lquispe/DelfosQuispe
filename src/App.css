@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+.navjustify{
+  margin-left:auto !important;
+}
+
+.text{
+  position: absolute;
+  top:30%;
+}
+
+body {
+  font-family: "Urbanist", sans-serif;
+  color: #444444;
+  font-size: 14px;
+  font-weight: 400;
+  overflow-x: hidden;
+  position: relative;
+}
+
