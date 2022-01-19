@@ -1,9 +1,18 @@
 import './App.css';
 import NavBar from './components/NavBar';
+import ItemListContainar from './components/ItemListContainer';
 
-function App() {
+
+const App = () => {
   return (
-    <NavBar></NavBar>
+    <div>
+      <header>
+          <NavBar></NavBar>
+      </header>
+      <section className="categ_sec">
+        <ItemListContainar greeting="Nuestros Libros" />
+      </section>
+    </div>
   );
 }
 

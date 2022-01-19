@@ -55,3 +55,28 @@ body {
   position: relative;
 }
 
+.cirtextnumber{
+  margin-right: 1rem;
+      border-radius: 50%;
+      height: 18px;
+      width: 18px;
+      line-height: 20px;
+      background-color: black;
+      text-align: center;
+      color:white;
+      font-size:12px;
+      background-color: black;
+      margin-left:-11px;
+}
+
+.text-titulo{
+  font-family: "Urbanist", sans-serif;
+	font-size: 26px;
+  letter-spacing: 0.6px;
+  text-align: center;
+}
+.categ_sec{
+position: relative;
+background-position: bottom center;
+text-align: center;
+}
