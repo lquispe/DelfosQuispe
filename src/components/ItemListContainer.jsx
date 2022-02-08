@@ -1,18 +1,9 @@
 import React from 'react';
-import ItemCount from './ItemCount';
 import ItemList from "./ItemList";
 import { Container, Row } from "react-bootstrap";
 
 
-/*
-const ItemListContainer =({greeting})=>{
- return(
-     <>
-     <span className="text-titulo">{greeting}</span>
-     <ItemCount></ItemCount>
-     </>
- );
-}*/
+
 
 const ItemListContainer = ({ products }) => {
     return (

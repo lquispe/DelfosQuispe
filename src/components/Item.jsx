@@ -1,12 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap';
+import { getProductsFromCategory } from '../services/Producto';
+import { useNavigate } from 'react-router-dom';
 
 const Item = ({ product }) => {
     //ver atributos
-    const { title, thumbnail, price } = product
+    const { id, title, thumbnail, price } = product;
+
+    const navigate = useNavigate();
+
+
+
 
     const [itemsQty, setItemsQty] = useState(10);
+
+    const { idproduct, setIdProduct } = useState(0);
 
     const setRealStock = (qty) => {
         if (qty <= 10) {
@@ -19,35 +28,39 @@ const Item = ({ product }) => {
             setItemsQty(qty)
         }
     }
+    const goToDetail = () => {
+
+              navigate(`/product/${id}`)
+
+    }
+
+
+
+
     return (
         <Container>
             <Row>
                 <Col md={4}>
 
-                    <Card style={{ width: '18rem' }}>
-                        {<Card.Img variant="top" src={thumbnail} />}
+                    <Card className="mb4  product-wap rounded-0" style={{ width: '18rem' }}>
+                        <Card.Img  style={{ marginTop: 10, height: '110px', with: "100%", objectFit: "contain" }} variant="top" src={thumbnail} />
 
-                        <Card.Body>
-                            <Card.Title>{title}</Card.Title>
-                            <Card.Text>
-                                Un mundo feliz es un clásico de la literatura de este siglo.
-                                Con ironía mordiente, el genial autor inglés plasma una sombría metáfora sobre el futuro
+                        <Card.Body style={{textAlign:'left'}}>
+                           
+                            <Card.Text style={{height:40}}>
+                                {title}
                             </Card.Text>
-                            <p className="text-center mb-0">${price}</p>
-                            <ul className="list-inline pb-3">
-
-                                <li onClick={() => removeFromStock(itemsQty - 1)} class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
-                                <li className="list-inline-item"><span class="badge bg-secondary" id="var-value">{itemsQty}</span></li>
-                                <li onClick={() => setRealStock(itemsQty + 1)} class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
-                            </ul>
+                            <Card.Title>${price}</Card.Title>
 
 
                         </Card.Body>
                         <Card.Body>
-                            <Card.Link className="btn btn-primary" href="#">Ver detalle</Card.Link>
-                           
+                            <Card.Link className="btn btn-primary" onClick={() => goToDetail({  })}>Ver detalle</Card.Link>
+
                         </Card.Body>
                     </Card>
+
+
 
 
                 </Col>
@@ -60,4 +73,4 @@ const Item = ({ product }) => {
 
     )
 }
-export default Item
+export default Item;

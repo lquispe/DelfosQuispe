@@ -1,16 +1,17 @@
 import { useState ,useEffect} from "react";
 import { getProductDetail, getProductDescription } from '../services/Producto';
 import ItemDetail from './ItemDetail';
+import  {useParams} from'react-router-dom';
 
 
-const ItemDetailContainer=(idproduct)=>{
+const ItemDetailContainer=()=>{
+    const {id}=useParams();
 
     const [product, setProduct] = useState(null);
-    console.log(idproduct);
 
     useEffect(() => {
         let mounted = true
-        Promise.all([ getProductDetail("MLA822750513"), getProductDescription("MLA822750513") ])
+        Promise.all([ getProductDetail(id), getProductDescription(id )])
         .then(results => {
             let item = results[0]
             item.description = results[1].plain_text
@@ -21,7 +22,7 @@ const ItemDetailContainer=(idproduct)=>{
             }
         })
         return () => mounted = false
-    }, [idproduct]);
+    }, [id]);
 
     return (
         <div className="item-detail-container">

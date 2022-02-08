@@ -1,16 +1,18 @@
 import React from 'react';
 import { Nav, Navbar, Container, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 import CartWidget from './CartWidget';
+import { Link, NavLink } from 'react-router-dom';
+
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-const NavBar = () => {
+const NavBar = ({categories}) => {
   return (
     <>
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="#">
+          <Navbar.Brand as={Link} to="/">
             <img
               src={require('../theme/img/logo.png')}
               width="60"
@@ -35,8 +37,13 @@ const NavBar = () => {
 
               navbarScroll
             >
-              <Nav.Link href="#action1">Inicio</Nav.Link>
-              <Nav.Link href="#action2">Libros</Nav.Link>
+                
+              <Nav.Link  as={Link} to="/">Inicio</Nav.Link>
+              <NavDropdown title={"Categorias"} id="basic-nav-dropdown">                      
+                        {categories.slice(0,6).map(category => { return (<NavDropdown.Item key={category.id} as={Link} to={`/category/${category.id}`}>{category.name}</NavDropdown.Item>)})}
+                        <NavDropdown.Item as={Link} to={`/categories`}>Ver todas</NavDropdown.Item>                          
+                    </NavDropdown>     
+              <Nav.Link as={Link} to="/">Libros</Nav.Link>
               <Nav.Link href="#action4">
                 <CartWidget/>
               </Nav.Link>
