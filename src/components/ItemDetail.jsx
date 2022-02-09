@@ -46,10 +46,7 @@ const ItemDetail = ({ product }) => {
                                 <h6>Descripción</h6>{description}
                                 <ItemCount itemsQty={itemsQty} available_quantity={available_quantity} setItemsQty={setItemsQty} />                               
                                 <Row pb={3}>
-                                    <Col className="d-grid">   
-                                    <Button  className="btn btn-success btn-lg">Comprar</Button> 
-
-                                    </Col>
+                                    
                                     <Col className="d-grid"> 
                                     {viewBottonCart ?              
   
