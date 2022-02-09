@@ -5,6 +5,7 @@ import Layout from './layouts/Layout';
 import ItemDetailContainer from './components/ItemDetailContainer'
 import Categories from './pages/Categories';
 import Category from './pages/Category';
+import Cart from './components/Cart'
 
 
 
@@ -26,8 +27,9 @@ const App = () => {
             <Route index element={ <Home />} />
             <Route path="/product/:id" element={<ItemDetailContainer />} />
             <Route path="/categories/" element={<Categories />} /> 
-            <Route path="/category/:id" element={<Category />} />     
-
+            <Route path="/category/:id" element={<Category />} />  
+            <Route path="/cart" element={<Cart/>}/>
+{}
             
           </Route>       
         </Routes>

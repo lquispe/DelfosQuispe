@@ -1,27 +1,28 @@
 import { Breadcrumb, Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useContext, useState } from 'react';
 import ItemCount from "./ItemCount";
-
+import {useNavigate} from "react-router-dom"
 const ItemDetail = ({ product }) => {
 
 
 
     const { title, description, price, sold_quantity, warranty, attributes, pictures, available_quantity } = product
 
+    const navigate = useNavigate();
 
     const [itemsQty, setItemsQty] = useState(0);
 
-    const setRealStock = (qty) => {
-        if (qty <= 10) {
-            setItemsQty(qty)
-        }
+    const [viewBottonCart,setViewBottonCart]= useState(true);
+
+    const onAdd=(product, itemsQty)=>{
+        setViewBottonCart(false)
+
+    }
+    const goto=()=>{
+        navigate('/cart')
     }
 
-    const removeFromStock = (qty) => {
-        if (qty >= 0) {
-            setItemsQty(qty)
-        }
-    }
+
 
 
     return (
@@ -43,20 +44,19 @@ const ItemDetail = ({ product }) => {
                                 <h2>{title} </h2>
                                 <h2 className="product-price display-4">$ {price}</h2>
                                 <h6>Descripción</h6>{description}
-                                <ul className="list-inline pb-3">
-
-                                    <li onClick={() => removeFromStock(itemsQty - 1)} class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
-                                    <li className="list-inline-item"><span class="badge bg-secondary" id="var-value">{itemsQty}</span></li>
-                                    <li onClick={() => setRealStock(itemsQty + 1)} class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
-                                </ul>
+                                <ItemCount itemsQty={itemsQty} available_quantity={available_quantity} setItemsQty={setItemsQty} />                               
                                 <Row pb={3}>
                                     <Col className="d-grid">   
                                     <Button  className="btn btn-success btn-lg">Comprar</Button> 
 
                                     </Col>
-                                    <Col className="d-grid">   
-                                    <Button  className="btn btn-success btn-lg">by too cart</Button> 
-
+                                    <Col className="d-grid"> 
+                                    {viewBottonCart ?              
+  
+                                    <Button onClick={()=>onAdd(product,itemsQty)} className="btn btn-success btn-lg">by too cart</Button> 
+                                    :
+                                    <Button onClick={()=>goto()} className="btn btn-success btn-lg">finalizar</Button> 
+}
                                     </Col>
                                 </Row>
 
