@@ -1,24 +1,31 @@
 import { Breadcrumb, Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useContext, useState } from 'react';
 import ItemCount from "./ItemCount";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import { CartContext } from "../context/CartContex";
 const ItemDetail = ({ product }) => {
+    const { onAdd } = useContext(CartContext);
+
+    const { isInCart } = useContext(CartContext);
+
+    const { removeItemId } = useContext(CartContext);
+    const { clear } = useContext(CartContext);
 
 
 
-    const { title, description, price, sold_quantity, warranty, attributes, pictures, available_quantity } = product
+
+
+    const { id, title, description, price, sold_quantity, warranty, attributes, pictures, available_quantity } = product
 
     const navigate = useNavigate();
 
+
     const [itemsQty, setItemsQty] = useState(0);
 
-    const [viewBottonCart,setViewBottonCart]= useState(true);
-
-    const onAdd=(product, itemsQty)=>{
-        setViewBottonCart(false)
-
-    }
-    const goto=()=>{
+    const [viewBottonCart, setViewBottonCart] = useState(true);
+    
+    
+    const goto = () => {
         navigate('/cart')
     }
 
@@ -44,19 +51,18 @@ const ItemDetail = ({ product }) => {
                                 <h2>{title} </h2>
                                 <h2 className="product-price display-4">$ {price}</h2>
                                 <h6>Descripción</h6>{description}
-                                <ItemCount itemsQty={itemsQty} available_quantity={available_quantity} setItemsQty={setItemsQty} />                               
+                                <ItemCount itemsQty={itemsQty} available_quantity={available_quantity} setItemsQty={setItemsQty} />
                                 <Row pb={3}>
-                                    
-                                    <Col className="d-grid"> 
-                                    {viewBottonCart ?              
-  
-                                    <Button onClick={()=>onAdd(product,itemsQty)} className="btn btn-success btn-lg">by too cart</Button> 
-                                    :
-                                    <Button onClick={()=>goto()} className="btn btn-success btn-lg">finalizar</Button> 
-}
+
+                                    <Col className="d-grid">
+                                        
+
+                                                <Button onClick={() => onAdd(product, itemsQty)} className="btn btn-success btn-lg">by too cart</Button>
+                                            
+                                            <Button onClick={() => goto()} className="btn btn-success btn-lg">finalizar</Button>
+                                        
                                     </Col>
                                 </Row>
-
 
 
                             </Card.Body>

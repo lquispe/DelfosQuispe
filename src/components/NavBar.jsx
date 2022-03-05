@@ -1,13 +1,26 @@
 import React from 'react';
-import { Nav, Navbar, Container, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
+import { Nav, Navbar, Container, NavDropdown, Form, FormControl, Button ,Image} from 'react-bootstrap';
 import CartWidget from './CartWidget';
+import Signin from './Signin';
+
 import { Link, NavLink } from 'react-router-dom';
+import { useContext } from 'react';
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { UsrContext } from '../context/UsrContext';
+import { signInWithPopup } from 'firebase/auth';
+import {auth,googleProvider} from '../firebase'; 
+
 
 
 const NavBar = ({categories}) => {
+  const { onAdd } = useContext(UsrContext);
+  const { singInWithGoogle } = useContext(UsrContext);
+
+
+  
+
   return (
     <>
       <Navbar bg="light" expand="lg">
@@ -47,11 +60,12 @@ const NavBar = ({categories}) => {
               <Nav.Link href="#action4">
                 <CartWidget/>
               </Nav.Link>
-              <span className="cirtextnumber">0</span>
+              <Signin/>
 
-              <Nav.Link href="#action2">Login</Nav.Link>
+           
+                
               
-            </Nav>
+              </Nav>
 
 
 
