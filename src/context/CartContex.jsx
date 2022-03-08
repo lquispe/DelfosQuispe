@@ -10,8 +10,14 @@ export const CartProvider = ({ children }) => {
         return items.length
     }
 
+
     const onAdd = (producto, qty) => {
-        // Usamos un spread operator, ... para hacer una copia del array y agregar un nuevo item
+        setItems([...items, {qty: qty, ...producto}])      
+    }
+    /*
+    const onAdd = (producto, qty) => {
+        
+
 
         if (!isInCart(producto.id)) {
 
@@ -21,7 +27,7 @@ export const CartProvider = ({ children }) => {
             setItems([...items, producto])
             console.log(items)
         }
-    }
+    }*/
 
     const clear = () => {
         setItems([])

@@ -1,6 +1,13 @@
 import { Container, Card, Row, Col, Button } from "react-bootstrap"
 import { CartContext } from "../context/CartContex";
-import { useContext, useState,useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
+import CartEmpty from '../components/CartEmptyState';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../firebase';
+
+
+
+
 
 
 
@@ -10,21 +17,68 @@ const Cart = () => {
     const { clear } = useContext(CartContext);
     const { items } = useContext(CartContext);
     const { isInCart } = useContext(CartContext);
-    const [total, setTotal]= useState(0);
+    const [total, setTotal] = useState(0);
 
-    useEffect(() => {
-        
-        let acum=0
 
-        for (var i = 0; i < items.length; i++) {
-            console.log(items[i].price)
-             acum=acum + items[i].price;
+    const [success, setSuccess] = useState(false);
+    const [orderId, setOrderId] = useState("");
+    const [isCartEmpty, setIsCartEmpty] = useState(true)
+
+
+    const checkout = () => {
+        console.log(items)
+        if (items.length === 0) {
+            alert("no tienes itemes en el carrito")
+            return
         }
-        setTotal(acum);
-    }, []);
+        const itemsToBuy = items.map(item => {
+            return {
+                id: item.id,
+                title: item.title,
+                price: item.price,
+                qty: item.qty
+            }
+        })
+
+        const buyer = {
+            name: "Jesus Nieves",
+            phone: "2932389283",
+            email: "yo@nievesjesus.com"
+        }
+
+        const totalGlobal = items.reduce((a, b) => {
+            return (a.qty * a.price) + (b.qty * b.price)
+        })
+
+        const order = { buyer: buyer, items: itemsToBuy, total: totalGlobal }
+
+        addDoc(collection(db, "orders"), order)
+            .then(doc => {
+                setOrderId(doc.id)
+                setSuccess(true)
+                console.log("esto es muy sencillo, el id de mi orden creada es", doc.id)
+            })
+            .catch(err => {
+                console.log("algo muy malo paso", err)
+            })
+
+    }
+    useEffect(() => {
+        if (items.length > 0) {
+            const totalGlobal = items.reduce((a, b) => {
+                return (a.qty * a.price) + (b.qty * b.price)
+            })
+            setTotal(totalGlobal)
+            setIsCartEmpty(false)
+        }
+
+    }, [items]);
 
 
-    
+if (isCartEmpty) {
+    return <CartEmpty />
+} else {
+
 
     return (
         <>
@@ -52,7 +106,7 @@ const Cart = () => {
                                         <Row key={product.id} className="main align-items-center">
 
                                             <Col className="col-2">
-                                                <img style={{ width: '3.5rem' }} className="img-fluid" src={product.thumbnail} />
+                                                <img style={{ width: '3.5rem' }} className="img-fluid" src={product.docImgUrl} />
                                             </Col>
 
 
@@ -62,7 +116,7 @@ const Cart = () => {
                                                 </Row>
                                             </Col>
                                             <Col style={{ padding: '0 1vh' }}>
-                                                <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a>
+                                                <a href="#">-</a><a href="#" class="border">{product.qty}</a><a href="#">+</a>
                                             </Col>
                                             <Col>
                                                 $ {product.price}
@@ -90,24 +144,17 @@ const Cart = () => {
                                         ITEMS
                                     </Col>
                                     <Col className="text-right">
-                                        {total}
                                     </Col>
 
 
                                 </Row>
-                                <form>
-                                    <p>SHIPPING</p> <select>
-                                        <option class="text-muted">Standard-Delivery- &euro; 5.00</option>
-                                    </select>
-                                    <p>GIVE CODE</p> <input id="code" placeholder="Enter your code" />
-                                </form>
+
                                 <Row style={{ borderTop: '1px solid rgba(0,0,0,.1)', padding: '2vh 0' }}>
                                     <Col> Total
                                     </Col>
                                     <Col className="text-right">
-                                        {total}
-                                        </Col>
-                                    <Button className="btn">CHECKOUT</Button>
+                                    </Col>
+                                    <Button className="btn" onClick={checkout}>CHECKOUT</Button>
 
 
                                 </Row>
@@ -126,5 +173,6 @@ const Cart = () => {
         </>
     )
 
+}
 }
 export default Cart

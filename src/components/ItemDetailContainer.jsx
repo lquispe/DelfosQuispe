@@ -2,6 +2,9 @@ import { useState ,useEffect} from "react";
 import { getProductDetail, getProductDescription } from '../services/Producto';
 import ItemDetail from './ItemDetail';
 import  {useParams} from'react-router-dom';
+import { collection, getDocs, query, where, getDoc, doc } from "firebase/firestore";
+import { db } from '../firebase';
+
 
 
 const ItemDetailContainer=()=>{
@@ -10,19 +13,32 @@ const ItemDetailContainer=()=>{
     const [product, setProduct] = useState(null);
 
     useEffect(() => {
-        let mounted = true
-        Promise.all([ getProductDetail(id), getProductDescription(id )])
-        .then(results => {
-            let item = results[0]
-            item.description = results[1].plain_text
-            if (mounted) {
-                setProduct(item)
-                setTimeout(() => {
-                }, 3000)
-            }
-        })
-        return () => mounted = false
-    }, [id]);
+
+        const getFromFirebase = async () => {
+          // Si no quiero filtrar los datos, solo hago un getDocs a colleciton(db, "items")
+    
+          
+    
+    
+          console.log("Obtener mis documentos usando getDoc, sirve para trer un unico registro")
+          const docRef = doc(db, "items", id)
+          const docSnapshot = await getDoc(docRef)
+          console.log(db)
+          console.log("pp"+docSnapshot.data())
+          const message = {
+            ...docSnapshot.data(),
+            id: docSnapshot.id
+          }
+          setProduct(message);
+          /// con promises
+          // getDocs(q).then(docs => console.log(docs.data()))
+    
+        }
+    
+        getFromFirebase()
+    
+      }, []);
+
 
     return (
         <div className="item-detail-container">

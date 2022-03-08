@@ -15,7 +15,7 @@ const ItemDetail = ({ product }) => {
 
 
 
-    const { id, title, description, price, sold_quantity, warranty, attributes, pictures, available_quantity } = product
+    const { id, title, description, price, sold_quantity, warranty, attributes, docImgUrl, avaible_quantity } = product
 
     const navigate = useNavigate();
 
@@ -23,8 +23,8 @@ const ItemDetail = ({ product }) => {
     const [itemsQty, setItemsQty] = useState(0);
 
     const [viewBottonCart, setViewBottonCart] = useState(true);
-    
-    
+
+
     const goto = () => {
         navigate('/cart')
     }
@@ -40,7 +40,7 @@ const ItemDetail = ({ product }) => {
                     <Col lg={5} mt={5}>
                         <Card mb={3}>
 
-                            <img src={pictures[0].secure_url} alt="" />
+                            <img src={docImgUrl} alt="" />
                         </Card>
 
                     </Col>
@@ -51,16 +51,16 @@ const ItemDetail = ({ product }) => {
                                 <h2>{title} </h2>
                                 <h2 className="product-price display-4">$ {price}</h2>
                                 <h6>Descripción</h6>{description}
-                                <ItemCount itemsQty={itemsQty} available_quantity={available_quantity} setItemsQty={setItemsQty} />
+                                <ItemCount itemsQty={itemsQty} avaible_quantity={avaible_quantity} setItemsQty={setItemsQty} />
                                 <Row pb={3}>
 
                                     <Col className="d-grid">
-                                        
 
-                                                <Button onClick={() => onAdd(product, itemsQty)} className="btn btn-success btn-lg">by too cart</Button>
-                                            
-                                            <Button onClick={() => goto()} className="btn btn-success btn-lg">finalizar</Button>
-                                        
+
+                                        <Button onClick={() => onAdd(product, itemsQty)} className="btn btn-success btn-lg">by too cart</Button>
+
+                                        <Button onClick={() => goto()} className="btn btn-success btn-lg">finalizar</Button>
+
                                     </Col>
                                 </Row>
 

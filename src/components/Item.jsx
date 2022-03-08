@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Item = ({ product }) => {
     //ver atributos
-    const { id, title, thumbnail, price } = product;
+    const { id, title, docImgUrl, price } = product;
 
     const navigate = useNavigate();
 
@@ -43,7 +43,7 @@ const Item = ({ product }) => {
                 <Col md={4}>
 
                     <Card className="mb4  product-wap rounded-0" style={{ width: '18rem' }}>
-                        <Card.Img  style={{ marginTop: 10, height: '110px', with: "100%", objectFit: "contain" }} variant="top" src={thumbnail} />
+                        <Card.Img  style={{ marginTop: 10, height: '110px', with: "100%", objectFit: "contain" }} variant="top" src={docImgUrl} />
 
                         <Card.Body style={{textAlign:'left'}}>
                            

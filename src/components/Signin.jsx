@@ -31,10 +31,8 @@ const Signin = () => {
             }
             )
     }
-    console.log('este es el usuario'+ usuario)
 
     auth.onAuthStateChanged((user) => {
-        console.log(user)
         if (user) {
             return setIsUserSignedIn(true)
         }else{

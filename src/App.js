@@ -10,6 +10,8 @@ import SignIn from './components/Signin'
 
 import { CartProvider } from './context/CartContex';
 import { UsrProvider } from './context/UsrContext';
+import AddItem from './pages/AddItem';
+
 
 
 
@@ -38,6 +40,8 @@ const App = () => {
             <Route path="/categories/" element={<Categories />} /> 
             <Route path="/category/:id" element={<Category />} />  
             <Route path="/cart" element={<Cart/>}/>
+            <Route path="/additem" element={<AddItem />} />      
+
 
 {}
             
