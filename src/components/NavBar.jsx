@@ -57,7 +57,7 @@ const NavBar = ({categories}) => {
                         <NavDropdown.Item as={Link} to={`/categories`}>Ver todas</NavDropdown.Item>                          
                     </NavDropdown>     
               <Nav.Link as={Link} to="/">Libros</Nav.Link>
-              <Nav.Link href="#action4">
+              <Nav.Link as={Link} to="/cart">
                 <CartWidget/>
               </Nav.Link>
               <Signin/>

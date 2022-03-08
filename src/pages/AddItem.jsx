@@ -13,15 +13,17 @@ const AddItem = () => {
 
     const onSubmit = (event) => {
         event.preventDefault();   
-        const name = event.target.elements.name.value;
+        const title = event.target.elements.name.value;
         const description = event.target.elements.description.value;
         const price = event.target.elements.price.value;
         const avaible_quantity = event.target.elements.stock.value;
+    
 
-        addToFirebase(name, description, price,avaible_quantity)
+
+        addToFirebase(title, description, price,avaible_quantity)
     }
 
-    const addToFirebase = async (name, description, price,avaible_quantity) => {
+    const addToFirebase = async (title, description, price,avaible_quantity) => {
 
         let imageUrl = ""
         if (typeof image !== 'undefined') {
@@ -34,7 +36,7 @@ const AddItem = () => {
         }
 
         addDoc(collection(db, "items"), {
-            name: name,
+            title: title,
             description: description,
             price: price,
             category: "",
@@ -84,7 +86,7 @@ const AddItem = () => {
                 <Form.Label>Precio</Form.Label>
                 <Form.Control type="text" placeholder="Precio" />
             </Form.Group>
-            <Form.Select controlId="category" aria-label="Selecciona una categoria">
+            <Form.Select  aria-label="Selecciona una categoria" controlId="categoria">
                 <option>Selecciona una categoria</option>
                 {categories.map(category => {
                     return  <option value={category.id}>{category.name}</option>

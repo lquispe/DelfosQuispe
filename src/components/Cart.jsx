@@ -48,7 +48,8 @@ const Cart = () => {
 
         const totalGlobal = items.reduce((a, b) => {
             return (a.qty * a.price) + (b.qty * b.price)
-        })
+        }, 1)
+        console.log("este es el valor a grabar" + totalGlobal)
 
         const order = { buyer: buyer, items: itemsToBuy, total: totalGlobal }
 
@@ -65,114 +66,128 @@ const Cart = () => {
     }
     useEffect(() => {
         if (items.length > 0) {
+
+            const totalProd = items.map(x => x.price * x.qty)
+            const totalGlobal=suma(totalProd)
+            /*
             const totalGlobal = items.reduce((a, b) => {
                 return (a.qty * a.price) + (b.qty * b.price)
-            })
+            })*/
+
+            console.log("este es el total" + totalGlobal);
             setTotal(totalGlobal)
             setIsCartEmpty(false)
         }
-
     }, [items]);
 
 
-if (isCartEmpty) {
-    return <CartEmpty />
-} else {
+    const suma = (ns) => {
+        let acumulado = 0
+        let i=0
+        for (i = 0; i < ns.length; i++) {
+            acumulado += ns[i];
+        }
+        return acumulado;
+    }
+    if (isCartEmpty) {
+        return <CartEmpty />
+    } else {
 
 
-    return (
-        <>
-            <section>
-                <Container>
-                    <Card>
+        return (
+            <>
+                <section>
+                    <Container>
+                        <Card>
 
-                        <Row>
-                            <Col md={8} className="cart">
-                                <Row>
-                                    <Col>
+                            <Row>
+                                <Col md={8} className="cart">
+                                    <Row>
+                                        <Col>
 
-                                        <h2>Shopping cart </h2>
-
-
-                                    </Col>
-                                    <Col className="col align-self-center text-right text-muted">
-                                        {items.length} items
-                                    </Col>
-                                </Row>
+                                            <h2>Shopping cart </h2>
 
 
-                                <Row className="border-top border-bottom">
-                                    {items.map((product) => (
-                                        <Row key={product.id} className="main align-items-center">
-
-                                            <Col className="col-2">
-                                                <img style={{ width: '3.5rem' }} className="img-fluid" src={product.docImgUrl} />
-                                            </Col>
+                                        </Col>
+                                        <Col className="col align-self-center text-right text-muted">
+                                            {items.length} items
+                                        </Col>
+                                    </Row>
 
 
-                                            <Col>
-                                                <Row>
-                                                    {product.title}
-                                                </Row>
-                                            </Col>
-                                            <Col style={{ padding: '0 1vh' }}>
-                                                <a href="#">-</a><a href="#" class="border">{product.qty}</a><a href="#">+</a>
-                                            </Col>
-                                            <Col>
-                                                $ {product.price}
-                                            </Col>
-                                            <Col>
-                                                <Button onClick={() => removeItemId(product.id)} className="btn btn-success btn-lg"></Button>
-                                            </Col>
+                                    <Row className="border-top border-bottom">
+                                        {items.map((product) => (
+                                            <Row key={product.id} className="main align-items-center">
+
+                                                <Col className="col-2">
+                                                    <img style={{ width: '3.5rem' }} className="img-fluid" src={product.docImgUrl} />
+                                                </Col>
 
 
-
-                                        </Row>
-
-                                    ))}
-                                </Row>
-                            </Col>
-
-
-
-                            <Col md={4} className="summary">
-                                <div>
-                                    <h5><b>Summary</b></h5>
-                                </div>
-                                <Row>
-                                    <Col style={{ paddingLeft: 0 }}>
-                                        ITEMS
-                                    </Col>
-                                    <Col className="text-right">
-                                    </Col>
-
-
-                                </Row>
-
-                                <Row style={{ borderTop: '1px solid rgba(0,0,0,.1)', padding: '2vh 0' }}>
-                                    <Col> Total
-                                    </Col>
-                                    <Col className="text-right">
-                                    </Col>
-                                    <Button className="btn" onClick={checkout}>CHECKOUT</Button>
-
-
-                                </Row>
-                            </Col>
+                                                <Col>
+                                                    <Row>
+                                                        {product.title}
+                                                    </Row>
+                                                </Col>
+                                                <Col style={{ padding: '0 1vh' }}>
+                                                    <a href="#">-</a><a href="#" class="border">{product.qty}</a><a href="#">+</a>
+                                                </Col>
+                                                <Col>
+                                                    $ {product.price}
+                                                </Col>
+                                                <Col>
+                                                    <Button onClick={() => removeItemId(product.id)} className="btn btn-success btn-lg"></Button>
+                                                </Col>
 
 
 
+                                            </Row>
 
-                        </Row>
+                                        ))}
+                                    </Row>
+                                </Col>
 
-                    </Card>
-                </Container>
 
-            </section>
 
-        </>
-    )
+                                <Col md={4} className="summary">
+                                    <div>
+                                        <h5><b>Summary</b></h5>
+                                    </div>
+                                    <Row>
+                                        <Col style={{ paddingLeft: 0 }}>
+                                            ITEMS
+                                        </Col>
+                                        <Col className="text-right">
+                                        </Col>
 
-}
+
+                                    </Row>
+
+                                    <Row style={{ borderTop: '1px solid rgba(0,0,0,.1)', padding: '2vh 0' }}>
+                                        <Col> Total
+                                        </Col>
+                                        <Col className="text-right">
+                                            ${total}
+                                        </Col>
+                                        <Button className="btn" onClick={checkout}>Finalizar compra</Button>
+
+
+                                    </Row>
+                                </Col>
+
+
+
+
+                            </Row>
+
+                        </Card>
+                    </Container>
+
+                </section>
+
+            </>
+        )
+
+    }
 }
 export default Cart
