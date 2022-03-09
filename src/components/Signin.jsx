@@ -37,14 +37,7 @@ const Signin = () => {
     useEffect(() => {
         auth.onAuthStateChanged(user => {
           setUser(user);
-          if (user) {
-
-            console.log(user)
-
-            return setIsUserSignedIn(true)
-        }else{
-       return setIsUserSignedIn(false)
-        }
+          
         })
       }, [])
     
@@ -56,7 +49,7 @@ const Signin = () => {
     }
 
 
-    if (isUserSignedIn === true) {
+    if (user) {
         return (
 
             <NavDropdown title={<><Image width={22} src={user.photoURL} fluid={true} roundedCircle={true} />{user.displayName}</>} id="basic-nav-dropdown">
