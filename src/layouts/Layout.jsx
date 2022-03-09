@@ -3,17 +3,26 @@ import { Outlet } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import { getCategories } from '../services/Producto';
 import Loading from '../components/Load';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
 
 const Layout = () => {
     const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState([])
 
     useEffect(() => {
-      getCategories("MLA").then(results => {
-            setCategories(results)
-        
-      })
-    }, [])
+        getDocs(collection(db, "categorias"))
+        .then(docs => {
+            let preCategories = []
+            docs.forEach(doc => {
+                preCategories.push({id: doc.id, ...doc.data()})
+            })
+            setCategories(preCategories)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }, []);  
 
     return(
         <div className="App">

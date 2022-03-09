@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useOutletContext, useParams } from 'react-router-dom';
 import { getProductsFromCategory } from '../services/Producto';
 import ItemListContainer from '../components/ItemListContainer';
+import { collection, getDocs, query, where, getDoc, doc } from "firebase/firestore";
+import { db } from '../firebase';
 
 const Category = () => {
 
@@ -11,20 +13,34 @@ const Category = () => {
 
 
   useEffect(() => {
-    setLoading(true)
 
-    if (typeof id !== 'undefined') {    
-        getProductsFromCategory("MLA", id).then(items => {
-                setProducts(items.results)
-                setTimeout(() => {
-                  setLoading(false)
+    const getFromFirebase = async () => {
+      const q = query(collection(db, "items"), where("idCategory", "==", id));
+      // Si no quiero filtrar los datos, solo hago un getDocs a colleciton(db, "items")
+      const snapshot = await getDocs(q)
 
-                }, 3000)
-            
-          })          
+      const allMesagges = []
+      snapshot.forEach(doc => {
+          const message = {
+            ...doc.data(),
+            id: doc.id
+          }
+          allMesagges.push(message)     
+        
+      });
+      setProducts(allMesagges);
+
+
+     
+
+      /// con promises
+      // getDocs(q).then(docs => console.log(docs.data()))
+
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id])
+
+    getFromFirebase()
+
+  }, []);
 
   return (
     <div>     

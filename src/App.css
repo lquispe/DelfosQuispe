@@ -127,4 +127,12 @@ input {
 input:focus::-webkit-input-placeholder {
   color: transparent
 }
+.title {
+  margin-bottom: 5vh;
+  margin-top: 3vh;
+}
+.btncar{
+  margin-top: 4vh !important;
+  padding: 1vh !important;
+}
 
