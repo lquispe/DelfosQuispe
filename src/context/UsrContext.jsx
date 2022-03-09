@@ -26,6 +26,7 @@ export const UsrProvider = ({ children }) => {
     }
 
     const addUsr=(usr)=>{
+        console.log("seteo el usuario"+usr)
         setUsuario(usr)
     }
     

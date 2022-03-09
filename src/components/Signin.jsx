@@ -4,7 +4,7 @@ import { auth, googleProvider } from '../firebase';
 import { Nav, Navbar, Container, NavDropdown, Form, FormControl, Button, Image } from 'react-bootstrap';
 import { useContext } from 'react';
 
-import { React, useState } from 'react';
+import { React, useState ,useEffect} from 'react';
 import { UsrContext } from '../context/UsrContext';
 
 
@@ -13,8 +13,8 @@ import { UsrContext } from '../context/UsrContext';
 const Signin = () => {
     const [isUserSignedIn, setIsUserSignedIn] = useState(true);
     const { onAdd } = useContext(UsrContext);
-    const { usuario } = useContext(UsrContext);
 
+    const [user, setUser] = useState(null) 
 
 
 
@@ -22,23 +22,34 @@ const Signin = () => {
         signInWithPopup(auth, googleProvider)
             .then(result => {
                 const user = result.user;
-                onAdd(user.id)
-                console.log(user)
+            
+                console.log("este es el usuario"+user)
         })
             .catch(error => {
 
                 console.log(error.message)
             }
             )
+           
     }
 
-    auth.onAuthStateChanged((user) => {
-        if (user) {
+
+    useEffect(() => {
+        auth.onAuthStateChanged(user => {
+          setUser(user);
+          if (user) {
+
+            console.log(user)
+
             return setIsUserSignedIn(true)
         }else{
        return setIsUserSignedIn(false)
         }
-    })
+        })
+      }, [])
+    
+
+   
 
     const signout=()=>{
         auth.signOut()
@@ -48,7 +59,7 @@ const Signin = () => {
     if (isUserSignedIn === true) {
         return (
 
-            <NavDropdown title={<><Image width={22} src='https://nievesjesus.com/images/avatar-1.svg' fluid={true} roundedCircle={true} /> Jesus</>} id="basic-nav-dropdown">
+            <NavDropdown title={<><Image width={22} src={user.photoURL} fluid={true} roundedCircle={true} />{user.displayName}</>} id="basic-nav-dropdown">
                 <NavDropdown.Item href="#">Configuracion</NavDropdown.Item>
                 <NavDropdown.Item href="#">Perfil</NavDropdown.Item>
                 <NavDropdown.Divider />
