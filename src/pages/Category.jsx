@@ -40,7 +40,7 @@ const Category = () => {
 
     getFromFirebase()
 
-  }, []);
+  }, [id]);
 
   return (
     <div>     
