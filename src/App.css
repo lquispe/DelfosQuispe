@@ -1,6 +1,4 @@
-.App {
-  text-align: center;
-}
+
 
 
 .App-header {
@@ -36,7 +34,11 @@ body {
   overflow-x: hidden;
   position: relative;
 }
-
+body, ul, li, p, a, label, input, div ,span{
+  font-family: "Urbanist", sans-serif;
+  font-size: 18px ;
+  font-weight: 300 !important;
+}
 .cirtextnumber{
   margin-right: 1rem;
       border-radius: 50%;
@@ -120,4 +122,31 @@ input:focus::-webkit-input-placeholder {
 
 .navlink{
   color:black !important;
+}
+.navlinkWhite{
+  color:#dcdde1 !important;
+}
+
+.btn-success {
+  background-color: #59ab6e !important;
+  border-color: #56ae6c !important;
+}
+
+#footer ul.footer-link-list li {
+  padding-top: 10px;
+}
+.circuloNum{
+  color: #fff !important;
+                        margin-left: 6px !important;;
+                        font-weight: bold !important;;
+                        position: absolute;
+                        left: 6px;
+                        top: -2px;
+                        font-Size: 0.6rem !important;
+                        background-color: #000;
+                        padding-Top: 2px; 
+                        padding-Bottom: 2px;
+                        padding-Left: 5px;
+                        padding-Right: 4px;
+                        border-Radius: 50%;
 }

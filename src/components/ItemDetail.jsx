@@ -52,13 +52,15 @@ const ItemDetail = ({ product }) => {
                                 <h2 className="product-price display-4">$ {price}</h2>
                                 <h6>Descripción</h6>{description}
                                 <ItemCount itemsQty={itemsQty} avaible_quantity={avaible_quantity} setItemsQty={setItemsQty} />
+                                
                                 <Row pb={3}>
 
                                     <Col className="d-grid">
 
 
                                         <Button onClick={() => onAdd(product, itemsQty)} className="btn btn-success btn-lg">Agregar a Carrito</Button>
-
+                                        </Col>
+                                        <Col className="d-grid">   
                                         <Button onClick={() => goto()} className="btn btn-success btn-lg">finalizar Compra</Button>
 
                                     </Col>

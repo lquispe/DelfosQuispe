@@ -17,21 +17,9 @@ const CartWidget = () => {
                 <>
                     <FontAwesomeIcon icon={faShoppingCart} />
 
-                    <div style={{
-                        color: "#fff",
-                        marginLeft: 6,
-                        fontWeight: "bold",
-                        position: "absolute",
-                        left: 6,
-                        top: -2,
-                        fontSize: "0.6rem",
-                        backgroundColor: "black",
-                        paddingTop: "2px",
-                        paddingBottom: "2px",
-                        paddingLeft: "5px",
-                        paddingRight: "4px",
-                        borderRadius: "50%"
-                    }}>{items.length}</div>
+                    <div className="circuloNum"
+                        
+                    >{items.length}</div>
                 </>
             )
 

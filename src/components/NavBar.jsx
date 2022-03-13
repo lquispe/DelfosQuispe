@@ -25,9 +25,9 @@ const NavBar = ({ categories, products }) => {
 
   return (
     <>
-      <Navbar sticky="top" style={{ fontSize: "0.8rem", backgroundColor: "#fff159" }}   bg="light" expand="lg">
+      <Navbar sticky="top"   bg="light" expand="lg">
         <Container>
-          <Navbar.Brand as={Link} to="/">
+          <Navbar.Brand as={Link} to="/"> 
           <Image  src={logo} width="50px" width="50px"/>
             <span >Delfos</span>
           </Navbar.Brand>

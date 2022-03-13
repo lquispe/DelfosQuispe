@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import { getCategories } from '../services/Producto';
 import Loading from '../components/Load';
+import Footer from '../components/footer';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 
@@ -43,8 +44,8 @@ const Layout = () => {
         <div className="App">
             <NavBar categories={categories} products={products} />
             <Outlet context={[setLoading]} />
-            {loading ? <Loading /> : null}             
-
+            {loading ? <Loading /> : null}  
+           
         </div>
     )
 }

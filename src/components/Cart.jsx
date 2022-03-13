@@ -213,7 +213,7 @@ const Cart = () => {
                                                 </Col>
                                                 <Col>
                                                     <Nav>
-                                                        <Nav.Link as={Link} to="/" onClick={() => removeItemId(product.id)} className="navlink">
+                                                        <Nav.Link as={Link} to="#" onClick={() => removeItemId(product.id)} className="navlink">
                                                             <FontAwesomeIcon icon={faTrash} />
                                                         </Nav.Link>
                                                     </Nav>
