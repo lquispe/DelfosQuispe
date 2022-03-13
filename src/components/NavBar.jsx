@@ -3,18 +3,11 @@ import { Nav, Navbar, Container, NavDropdown, Form, FormControl, Button, Image }
 import CartWidget from './CartWidget';
 import Signin from './Signin';
 import ItemListContainer from './ItemListContainer';
-
 import { Link, NavLink } from 'react-router-dom';
-
-
-
-
-
-
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useMemo, useContext } from 'react';
+import { CartContext } from '../context/CartContex';
 
-import { useMemo } from 'react';
 
 
 
@@ -22,33 +15,13 @@ import { useMemo } from 'react';
 const NavBar = ({ categories, products }) => {
 
   const [buscar, setBuscar] = useState("")
-
-
-
-const books= useMemo(()=>{
-
-    if (!buscar) {
-      return products;
-
-    }
-    return products.filter(({ title }) => title.toLowerCase().indexOf(buscar) > -1);
-  }, [buscar, []])
-
-
-
+  const { addSearch } = useContext(CartContext);
   const handleSearch = (e) => {
     let valor = e.target.value.toLowerCase();
     console.log(valor)
     setBuscar(valor)
+    addSearch(valor)
   }
-
-
-
-
-
-
-
-
 
 
   return (
@@ -71,7 +44,7 @@ const books= useMemo(()=>{
               <FormControl
                 onChange={handleSearch}
                 values={buscar}
-          
+
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
@@ -104,17 +77,10 @@ const books= useMemo(()=>{
           </Navbar.Collapse>
         </Container>
       </Navbar>
-        <div>
 
 
-        <section className="categ_sec">
-          <ItemListContainer products={books} />
 
-        </section>
-      </div>
-    
-    
-      
+
     </>
 
   );
