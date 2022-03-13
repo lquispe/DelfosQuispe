@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { Nav, Navbar, Container, NavDropdown, Form, FormControl, Button, Image } from 'react-bootstrap';
+import { Nav, Navbar, Container, NavDropdown, Form, FormControl,  Image } from 'react-bootstrap';
 import CartWidget from './CartWidget';
 import Signin from './Signin';
 import { Link } from 'react-router-dom';
@@ -9,13 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
 import logo from '../theme/img/logo.png';
-
-
-
-
-
-
-
 
 
 const NavBar = ({ categories, products }) => {
@@ -58,7 +51,7 @@ const NavBar = ({ categories, products }) => {
             >
 
               <Nav.Link as={Link} to="/">Inicio</Nav.Link>
-              <NavDropdown title={"Categorias"} id="basic-nav-dropdown">
+              <NavDropdown title={"Categorias"} id="basic-nav-dropdown" style={{ fontSize: "0.8rem"}} >
                 {categories.slice(0, 6).map(category => { return (<NavDropdown.Item key={category.id} as={Link} to={`/category/${category.id}`}>{category.name}</NavDropdown.Item>) })}
                 <NavDropdown.Item as={Link} to={`/categories`}>Ver todas</NavDropdown.Item>
               </NavDropdown>

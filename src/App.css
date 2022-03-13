@@ -118,3 +118,6 @@ input:focus::-webkit-input-placeholder {
   padding: 1vh !important;
 }
 
+.navlink{
+  color:black !important;
+}

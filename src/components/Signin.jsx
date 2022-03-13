@@ -1,18 +1,21 @@
 
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../firebase';
-import { Nav, Navbar, Container, NavDropdown, Form, FormControl, Button, Image } from 'react-bootstrap';
+import { Nav,   NavDropdown ,Image} from 'react-bootstrap';
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 import { React, useState ,useEffect} from 'react';
 import { UsrContext } from '../context/UsrContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 
 
 
 const Signin = () => {
-    const [isUserSignedIn, setIsUserSignedIn] = useState(true);
-    const { onAdd } = useContext(UsrContext);
+ 
+ 
 
     const [user, setUser] = useState(null) 
 
@@ -65,7 +68,13 @@ const Signin = () => {
     } else {
         return (
             <div style={{ position: "relative", marginLeft: 6 }}>
-                < button onClick={singInWithGoogle}>Login</button>
+                 <Nav>
+                                                        <Nav.Link as={Link} to="/" onClick={singInWithGoogle} > 
+                                                            <FontAwesomeIcon icon={faUser} />                                                                      
+                                                        </Nav.Link>
+                                                    </Nav>
+
+              
             </div>
 
 
