@@ -7,6 +7,8 @@ import Categories from './pages/Categories';
 import Category from './pages/Category';
 import Cart from './components/Cart'
 import SignIn from './components/Signin'
+import SearchContainer from './components/SearchContainer'
+
 
 import { CartProvider } from './context/CartContex';
 import { UsrProvider } from './context/UsrContext';
@@ -40,7 +42,9 @@ const App = () => {
             <Route path="/categories/" element={<Categories />} /> 
             <Route path="/category/:id" element={<Category />} />  
             <Route path="/cart" element={<Cart/>}/>
-            <Route path="/additem" element={<AddItem />} />      
+            <Route path="/additem" element={<AddItem />} />    
+    
+  
 
 
 {}

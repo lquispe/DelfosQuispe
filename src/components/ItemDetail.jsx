@@ -57,9 +57,9 @@ const ItemDetail = ({ product }) => {
                                     <Col className="d-grid">
 
 
-                                        <Button onClick={() => onAdd(product, itemsQty)} className="btn btn-success btn-lg">by too cart</Button>
+                                        <Button onClick={() => onAdd(product, itemsQty)} className="btn btn-success btn-lg">Agregar a Carrito</Button>
 
-                                        <Button onClick={() => goto()} className="btn btn-success btn-lg">finalizar</Button>
+                                        <Button onClick={() => goto()} className="btn btn-success btn-lg">finalizar Compra</Button>
 
                                     </Col>
                                 </Row>

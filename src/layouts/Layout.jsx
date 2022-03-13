@@ -9,6 +9,8 @@ import { db } from '../firebase';
 const Layout = () => {
     const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState([])
+    const [products, setProducts] = useState([])
+
 
     useEffect(() => {
         getDocs(collection(db, "categorias"))
@@ -23,10 +25,23 @@ const Layout = () => {
             console.log(err)
         })
     }, []);  
+    useEffect(() => {
+        getDocs(collection(db, "items"))
+        .then(docs => {
+            let prods = []
+            docs.forEach(doc => {
+                prods.push({id: doc.id, ...doc.data()})
+            })
+            setProducts(prods)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }, []);  
 
     return(
         <div className="App">
-            <NavBar categories={categories} />
+            <NavBar categories={categories} products={products} />
             <Outlet context={[setLoading]} />
             {loading ? <Loading /> : null}             
 

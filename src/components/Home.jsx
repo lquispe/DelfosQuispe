@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useContext } from 'react';
 import { getProductsFromCategory } from '../services/Producto';
 import ItemListContainer from './ItemListContainer';
 import { useParams, useOutletContext } from 'react-router-dom';
 import { collection, getDocs, query, where, getDoc, doc } from "firebase/firestore";
 import { db } from '../firebase';
+import SearchContainer from './SearchContainer';
+import { CartContext } from '../context/CartContex';
+
 
 
 
@@ -15,10 +18,13 @@ const Home = () => {
   const [setLoading] = useOutletContext();
 
 
+
   
 
 
   useEffect(() => {
+
+    
 
     const getFromFirebase = async () => {
       const q = query(collection(db, "items"));
@@ -55,14 +61,7 @@ const Home = () => {
   return (
     <>
 
-      <div>
-
-
-        <section className="categ_sec">
-          <ItemListContainer products={products} />
-
-        </section>
-      </div>
+     
     </>
   );
 }

@@ -1,25 +1,55 @@
-import React from 'react';
-import { Nav, Navbar, Container, NavDropdown, Form, FormControl, Button ,Image} from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Nav, Navbar, Container, NavDropdown, Form, FormControl, Button, Image } from 'react-bootstrap';
 import CartWidget from './CartWidget';
 import Signin from './Signin';
+import ItemListContainer from './ItemListContainer';
 
 import { Link, NavLink } from 'react-router-dom';
-import { useContext } from 'react';
+
+
+
+
+
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { UsrContext } from '../context/UsrContext';
-import { signInWithPopup } from 'firebase/auth';
-import {auth,googleProvider} from '../firebase'; 
+
+import { useMemo } from 'react';
 
 
 
-const NavBar = ({categories}) => {
-  const { onAdd } = useContext(UsrContext);
-  const { singInWithGoogle } = useContext(UsrContext);
+
+const NavBar = ({ categories, products }) => {
+
+  const [buscar, setBuscar] = useState("")
 
 
-  
+
+const books= useMemo(()=>{
+
+    if (!buscar) {
+      return products;
+
+    }
+    return products.filter(({ title }) => title.toLowerCase().indexOf(buscar) > -1);
+  }, [buscar, []])
+
+
+
+  const handleSearch = (e) => {
+    let valor = e.target.value.toLowerCase();
+    console.log(valor)
+    setBuscar(valor)
+  }
+
+
+
+
+
+
+
+
+
 
   return (
     <>
@@ -39,7 +69,9 @@ const NavBar = ({categories}) => {
           <Navbar.Collapse id="navbarScroll" className="justify-content-end">
             <Form className="d-flex">
               <FormControl
-                type="search"
+                onChange={handleSearch}
+                values={buscar}
+          
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
@@ -50,29 +82,41 @@ const NavBar = ({categories}) => {
 
               navbarScroll
             >
-                
-              <Nav.Link  as={Link} to="/">Inicio</Nav.Link>
-              <NavDropdown title={"Categorias"} id="basic-nav-dropdown">                      
-                        {categories.slice(0,6).map(category => { return (<NavDropdown.Item key={category.id} as={Link} to={`/category/${category.id}`}>{category.name}</NavDropdown.Item>)})}
-                        <NavDropdown.Item as={Link} to={`/categories`}>Ver todas</NavDropdown.Item>                          
-                    </NavDropdown>     
+
+              <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+              <NavDropdown title={"Categorias"} id="basic-nav-dropdown">
+                {categories.slice(0, 6).map(category => { return (<NavDropdown.Item key={category.id} as={Link} to={`/category/${category.id}`}>{category.name}</NavDropdown.Item>) })}
+                <NavDropdown.Item as={Link} to={`/categories`}>Ver todas</NavDropdown.Item>
+              </NavDropdown>
               <Nav.Link as={Link} to="/">Libros</Nav.Link>
               <Nav.Link as={Link} to="/cart">
-                <CartWidget/>
+                <CartWidget />
               </Nav.Link>
-              <Signin/>
+              <Signin />
 
-           
-                
-              
-              </Nav>
+
+
+
+            </Nav>
 
 
 
           </Navbar.Collapse>
         </Container>
       </Navbar>
+        <div>
+
+
+        <section className="categ_sec">
+          <ItemListContainer products={books} />
+
+        </section>
+      </div>
+    
+    
+      
     </>
+
   );
 }
 export default NavBar;
