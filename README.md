@@ -17,4 +17,4 @@ Install my-project with npm
     
 ## Demo
 
-![App Screenshot](https://github.com/lquispe/DelfosQuispe/blob/main/src/assets/libreria.gif)
+![App Screenshot](https://github.com/lquispe/DelfosQuispe/blob/main/src/assets/libreria2.gif)
